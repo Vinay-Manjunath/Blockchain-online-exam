@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Selection</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom CSS for buttons */
+        .button-container {
+            text-align: center;
+        }
+        .button-container div {
+            margin-top: 80px; /* Adjust the margin as needed */
+        }
+        button {
+            padding: 12px 24px; /* Adjust the padding as needed */
+            width: auto;
+            font-size: x-large; /* Set the width to auto */
+        }
+    </style>
+</head>
+<body>
+    <h2>Select Option</h2>
+    <div class="button-container">
+        
+        <div>
+            <button onclick="startQuiz()">Start Quiz</button>
+        </div>
+        <div>
+            <button onclick="redirectToViewTransaction()">View Transaction</button>
+        </div>
+    </div>
+
+    <script src="web3.min.js"></script>
+
+    
+    <script>
+        function redirectToViewTransaction() {
+            window.location.href = "viewTransaction.html";
+        }
+        function startQuiz() {
+            window.location.href = "questions.html";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrieve Quiz Data</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.5.0/web3.min.js"></script>
+    <link rel="stylesheet" href="styles1.css">
+    <script type="text/javascript">
+        const web3 = new Web3(Web3.givenProvider);
+
+        function retrieveData() {
+            const txHash = document.getElementById('txHash').value;
+            if (!txHash) {
+                alert("Please enter a valid transaction hash.");
+                return;
+            }
+
+            const contractAddress = '0x3D9e5eC783f58CE62a8028adE2ec388dc4584521'; // Update with your contract address
+            const contractABI = [ // Update with your contract ABI
+                {
+                    "constant": true,
+                    "inputs": [
+                        {
+                            "name": "user",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "getQuiz",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "string"
+                        },
+                        {
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                }
+            ];
+
+            const contract = new web3.eth.Contract(contractABI, contractAddress);
+            web3.eth.getTransaction(txHash)
+                .then((transaction) => {
+                    if (!transaction) {
+                        alert("Transaction not found.");
+                        return;
+                    }
+                    return contract.methods.getQuiz(transaction.from).call();
+                })
+                .then((data) => {
+                    if (data) {
+                        document.getElementById('result').style.display = 'block';
+                        document.getElementById('username').innerText = "Username: " + data[0];
+                        document.getElementById('marks').innerText = "Marks: " + data[1];
+                    } else {
+                        alert("Data not found for the provided transaction.");
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error retrieving data:', error);
+                    alert('Error retrieving data. Please try again.');
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+    <h2>Retrieve Quiz Data</h2>
+    <label for="txHash">Enter Transaction Hash:</label>
+    <input type="text" id="txHash" name="txHash">
+    <button onclick="retrieveData()">Retrieve Data</button>
+    <div id="result" style="display: none;">
+        <p id="username"></p>
+        <p id="marks"></p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            width: 700px; /* Adjust width as needed */
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center-align container contents */
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Quiz Results</h2>
+        <p id="marks">Your marks:</p>
+        <p id="txHash">Transaction Hash:</p>
+    </div>
+    <script>
+        // Retrieve marks and transaction hash from URL query parameters
+        var urlParams = new URLSearchParams(window.location.search);
+        var marks = urlParams.get('marks');
+        var txHash = urlParams.get('txHash');
+
+        // Display marks and transaction hash on the results page
+        document.getElementById("marks").innerText = "Your marks: " + marks;
+        document.getElementById("txHash").innerText = "Transaction Hash: " + txHash;
+    </script>
+</body>
+</html>
